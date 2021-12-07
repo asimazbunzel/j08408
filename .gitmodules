@@ -1,0 +1,6 @@
+[submodule "src/models/mesabin2dco"]
+	path = src/models/mesabin2dco
+	url = git@github.com:asimazbunzel/mesabin2dco.git
+[submodule "src/models/poskiorb"]
+	path = src/models/poskiorb
+	url = git@github.com:asimazbunzel/poskiorb.git
