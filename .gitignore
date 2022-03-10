@@ -2,10 +2,11 @@
 # do not include plots, some plotting modules
 # ---------------------------------------------------------------------------------------------
 *.pdf
-**/kipploter/
+notebooks/kipplotter/
+reports/
 
 # this notebook was used to create an html, not important actually
-*/notebooks/asymmetric-collapse.ipynb
+notebooks/asymmetric-collapse.ipynb
 
 # ---------------------------------------------------------------------------------------------
 # avoid having raw data 
