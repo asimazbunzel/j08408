@@ -1,0 +1,27 @@
+
+Config:
+
+  number-of-kicks: 1000000
+  kick-magnitude-distribution: "Maxwell"
+  reduce-kick-magnitude-with-fallback: True
+
+  xnum: 50
+  ynum: 50
+  min-prob: 0.0000001
+
+  quantiles:
+    xmin: 0.0
+    xmax: 0.98
+
+    ymin: 0.0
+    ymax: 1.0
+
+  star-data-at-core-collapse: "/home/asimazbunzel/Projects/J08408/data/raw/star+star/cc_data/star_at_core_collapse.data"
+  binary-data-at-core-collapse: "/home/asimazbunzel/Projects/J08408/data/raw/star+star/cc_data/binary_at_core_collapse.data"
+
+  show-orbital-grid: True
+  save-kicks-info: True
+
+  kicks-fname: "kicks-distribution.data"
+  orbits-after-kick-fname: "all_orbits.data"
+  target-orbits-after-kick-fname: "target_orbits.data"
