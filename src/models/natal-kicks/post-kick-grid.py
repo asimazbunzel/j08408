@@ -1,9 +1,10 @@
+"""Module used to create grid of binary parameters after an asymmetric core collapse of a star"""
 
-from pathlib import Path
 import sys
-import yaml
+from pathlib import Path
 
 import poskiorb
+import yaml
 
 
 def get_config_file(fname: str = "") -> dict:
@@ -21,7 +22,8 @@ def get_config_file(fname: str = "") -> dict:
     """
 
     configpath = Path(fname)
-    if not configpath.is_file(): raise FileNotFoundError(f"`{fname}` not found.")
+    if not configpath.is_file():
+        raise FileNotFoundError(f"`{fname}` not found.")
 
     try:
         with open(fname) as f:
@@ -32,7 +34,7 @@ def get_config_file(fname: str = "") -> dict:
     return params
 
 
-def match_id(id: str="", fname: str="") -> float:
+def match_id(id: str = "", fname: str = "") -> float:
     """Search file for id and return value associated to it
 
     Parameters
@@ -50,7 +52,7 @@ def match_id(id: str="", fname: str="") -> float:
         for k, line in enumerate(f):
             line = line.strip()
             if line.startswith(id):
-                value = float(line.split(' ')[-1])
+                value = float(line.split(" ")[-1])
                 return value
 
 
@@ -73,21 +75,20 @@ def get_collapse_data(star_fname: str, binary_fname: str) -> dict:
 
     # check for existance of data files
     starpath = Path(star_fname)
-    if not starpath.is_file(): raise FileNotFoundError(f"{star_fname} not found")
+    if not starpath.is_file():
+        raise FileNotFoundError(f"{star_fname} not found")
 
     binarypath = Path(binary_fname)
-    if not binarypath.is_file(): raise FileNotFoundError(f"{binary_fname} not found")
+    if not binarypath.is_file():
+        raise FileNotFoundError(f"{binary_fname} not found")
 
     StarIdMaps = {
         "m1": "mass_pre_cc",
         "m1_core_mass": "c_core_mass_pre_cc",
         "m1_remnant_mass": "remnant_mass",
-        "m1_fallback_fraction": "fallback_fraction"
+        "m1_fallback_fraction": "fallback_fraction",
     }
-    BinaryIdMaps = {
-        "m2": "companion_mass",
-        "P": "period_pre_cc"
-    }
+    BinaryIdMaps = {"m2": "companion_mass", "P": "period_pre_cc"}
 
     # get data pre-collapse
     CollapseData = dict()
@@ -100,7 +101,7 @@ def get_collapse_data(star_fname: str, binary_fname: str) -> dict:
     return CollapseData
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # name of config file
     configname = sys.argv[1]
@@ -109,9 +110,10 @@ if __name__ == '__main__':
     ConfigData = get_config_file(fname=configname)
 
     # grab data at core collapse
-    Data = get_collapse_data(ConfigData["Config"]["star-data-at-core-collapse"],
-                             ConfigData["Config"]["binary-data-at-core-collapse"])
-
+    Data = get_collapse_data(
+        ConfigData["Config"]["star-data-at-core-collapse"],
+        ConfigData["Config"]["binary-data-at-core-collapse"],
+    )
 
     # setup for natal kicks search
     binary = poskiorb.binary.BinarySystem(**Data)
@@ -122,20 +124,30 @@ if __name__ == '__main__':
     else:
         f = lambda x: x
 
-    binary.set_natal_kick_distribution(n_trials=ConfigData["Config"]["number-of-kicks"],
-                                       distribution_id=ConfigData["Config"]["kick-magnitude-distribution"],
-                                       kick_scaling=f)
+    binary.set_natal_kick_distribution(
+        n_trials=ConfigData["Config"]["number-of-kicks"],
+        distribution_id=ConfigData["Config"]["kick-magnitude-distribution"],
+        kick_scaling=f,
+    )
 
     # compute natal kicks & new orbital values
     binary.get_natal_kick_distribution()
     binary.get_orbital_distribution(verbose=True)
-    binary.get_post_kick_grid(xnum=ConfigData["Config"]["xnum"],
-                              ynum=ConfigData["Config"]["ynum"],
-                              xquantiles=[ConfigData["Config"]["quantiles"]["xmin"], ConfigData["Config"]["quantiles"]["xmax"]],
-                              
-                              yquantiles=[ConfigData["Config"]["quantiles"]["ymin"], ConfigData["Config"]["quantiles"]["ymax"]],
-                              min_prob=ConfigData["Config"]["min-prob"],
-                              use_unbounded_for_norm=False, verbose=True)
+    binary.get_post_kick_grid(
+        xnum=ConfigData["Config"]["xnum"],
+        ynum=ConfigData["Config"]["ynum"],
+        xquantiles=[
+            ConfigData["Config"]["quantiles"]["xmin"],
+            ConfigData["Config"]["quantiles"]["xmax"],
+        ],
+        yquantiles=[
+            ConfigData["Config"]["quantiles"]["ymin"],
+            ConfigData["Config"]["quantiles"]["ymax"],
+        ],
+        min_prob=ConfigData["Config"]["min-prob"],
+        use_unbounded_for_norm=False,
+        verbose=True,
+    )
 
     # show grid
     if ConfigData["Config"]["show-orbital-grid"]:
@@ -143,6 +155,10 @@ if __name__ == '__main__':
 
     # store info on grid study
     if ConfigData["Config"]["save-kicks-info"]:
-        binary.save_complete_grid(kick_fname=ConfigData["Config"]["kicks-fname"],
-                                  orbit_fname=ConfigData["Config"]["orbits-after-kick-fname"])
-        binary.save_target_grid(fname=ConfigData["Config"]["target-orbits-after-kick-fname"])
+        binary.save_complete_grid(
+            kick_fname=ConfigData["Config"]["kicks-fname"],
+            orbit_fname=ConfigData["Config"]["orbits-after-kick-fname"],
+        )
+        binary.save_target_grid(
+            fname=ConfigData["Config"]["target-orbits-after-kick-fname"]
+        )
