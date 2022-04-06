@@ -4,3 +4,6 @@
 [submodule "src/models/poskiorb"]
 	path = src/models/poskiorb
 	url = git@github.com:asimazbunzel/poskiorb.git
+[submodule "src/tools/make_summary"]
+	path = src/tools/make_summary
+	url = git@github.com:asimazbunzel/make_summary.git
