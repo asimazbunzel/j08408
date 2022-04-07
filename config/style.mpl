@@ -9,7 +9,7 @@ lines.markersize     : 4       ## markersize, in points
 #### FONT
 font.family          : STIXGeneral
 font.style           : normal
-font.size            : 10.0
+font.size            : 9.0
 font.serif           : DejaVu Serif
 font.sans-serif      : DejaVu Sans
 font.monospace       : DejaVu Sans Mono
@@ -39,13 +39,15 @@ ytick.minor.visible  : True   ## visibility of minor ticks on y-axis
 
 #### Legend
 legend.frameon       : False     ## if True, draw the legend on a background patch
-legend.fontsize      : 8.0
+legend.fontsize      : 6.0
 legend.handlelength  : 2.0      ## the length of the legend lines
 legend.handleheight  : 0.7      ## the height of the legend handle
 legend.borderpad     : 0.4      ## border whitespace
 legend.labelspacing  : 0.2      ## the vertical space between the legend entries
-legend.handletextpad : 0.8      ## the space between the legend line and legend text
-legend.borderaxespad : 0.7      ## the border between the axes and legend edge
+legend.handletextpad : 0.5      ## the space between the legend line and legend text
+legend.borderaxespad : 0.5      ## the border between the axes and legend edge
+legend.markerscale   : 0.8      ## the relative size of legend markers compared with the originally drawn ones
+legend.columnspacing : 1.0      ## the spacing between columns, in font-size units
 
 #### FIGURE
 ## See http://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure
