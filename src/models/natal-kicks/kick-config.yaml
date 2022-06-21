@@ -19,7 +19,7 @@ Config:
   star-data-at-core-collapse: "/home/asimazbunzel/Projects/J08408/data/raw/star+star/cc_data/star_at_core_collapse.data"
   binary-data-at-core-collapse: "/home/asimazbunzel/Projects/J08408/data/raw/star+star/cc_data/binary_at_core_collapse.data"
 
-  show-orbital-grid: True
+  show-orbital-grid: False
   save-kicks-info: True
 
   kicks-fname: "kicks-distribution.data"
